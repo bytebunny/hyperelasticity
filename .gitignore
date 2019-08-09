@@ -1,0 +1,20 @@
+# Ignore everything
+*
+
+# But not these files:
+!*.md
+!LICENSE
+!*.gitignore
+!*.pdf
+!*.tex
+!*.bib
+!*.dat
+!*.png
+!*.m
+!*.mat
+
+# ...even if they are in subdirectories
+!*/
+
+# Specifically ignore:
+doc/calfem34.pdf
