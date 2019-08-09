@@ -8,8 +8,8 @@ function [PioKir2, dPioKir2_dE] = yeoh(C,params)
 % params -- vector of material parameters: mu, lambda, c2, c3.
 %
 % Output:
-% PioKir2 -- 2nd Piola-Kirchhoff stress tensor.
-% dPioKir2_dE -- material (Lagrangian) elasticity tensor.
+% PioKir2 -- 2nd Piola-Kirchhoff stress tensor (1x9 vector).
+% dPioKir2_dE -- material (Lagrangian) elasticity tensor (1x9 matrix).
 
 mu = params(1);
 lambda = params(2);
