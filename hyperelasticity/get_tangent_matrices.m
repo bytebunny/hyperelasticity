@@ -31,20 +31,27 @@ shape_grad_local = [-1 1 0;
                     -1 0 1];
 dx_dksi = xy'*shape_grad_local';
 
-mu = params(1); lambda = params(2);
 % For the plane strain condition, the deformation gradient becomes:
 F_temp = [F, [0; 0]];
 F = [F_temp; [0 0 1]];
-J = sqrt( det(F'*F) );
+[S2,dS2_dE]=yeoh(m_2_v9(F'*F),params);
+% ///Debugging: compute numerical material stiffness for comparison with
+% analytical dS2_dE:
+% for jj=1:9
+%       Cdiff=m_2_v9(F'*F); num_pert=1.e-7; Cdiff(jj)=Cdiff(jj)+num_pert;
+%       [S2diff,~]=yeoh(Cdiff,params);
+%       dS2_dEdiff(:,jj)=2*(S2diff-S2)/num_pert;
+% end
 
-cauchy_stress = mu / J * (F*F' - eye(3)) + lambda / J * log(J) * eye(3);
+%compute Cauchy stress (as a 3x3 matrix) as a push forward of S2
+cauchy_stress=1/det(F)*F*v9_2_m(S2)*F';
 
-lambda1 = lambda / J;
-mu1 = (mu - lambda*log(J)) / J;
-% Spatial 4th order elasticity tensor in matrix form in 2D:
-D = [lambda1+2*mu1       lambda1   0;
-     lambda1       lambda1+2*mu1   0;
-     0                         0 mu1];
+% Compute spatial 4th order elasticity tensor as Piola push forward of 
+% material elasticity tensor (see eq-n 6.14 in Bonet & Wood, 2nd edition):
+Fv = m_2_v9(F);
+Ft=m_2_v9(F');
+D = 1/det(F)*f9_open_u_9(Fv,Fv)*dS2_dE*f9_open_u_9(Ft,Ft);
+D = D([1,2,4],[1,2,4]); % Extract 2D part.
 
 k_const = zeros(n_dof,n_dof);
 k_initial = zeros(n_dof,n_dof);

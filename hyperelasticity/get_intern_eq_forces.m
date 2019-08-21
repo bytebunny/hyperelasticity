@@ -17,13 +17,12 @@ shape_grad_local = [-1 1 0;
                     -1 0 1];
 dx_dksi = xy'*shape_grad_local';
 
-mu = params(1); lambda = params(2);
 % For the plane strain condition, the deformation gradient becomes:
 F_temp = [F, [0; 0]];
 F = [F_temp; [0 0 1]];
-J = sqrt( det(F'*F) );
-
-cauchy_stress = mu / J * (F*F' - eye(3)) + lambda / J * log(J) * eye(3);
+[S2,~]=yeoh(m_2_v9(F'*F),params);
+%compute Cauchy stress (as a 3x3 matrix) as a push forward of S2
+cauchy_stress=1/det(F)*F*v9_2_m(S2)*F';
 
 [n_nodes, n_dim] = size(xy);
 
