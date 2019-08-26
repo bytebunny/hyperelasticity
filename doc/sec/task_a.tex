@@ -1,0 +1,93 @@
+\section{Task A}
+\label{sec:task-a}
+
+The 2nd Piola-Kirchhoff stress can be obtained from free energy using
+equation \eqref{eq:PK2} in \cite{Bonet2008}:
+\begin{equation} \tag{6.18}
+  \label{eq:PK2}
+  \utilde{S} = 2 \frac{\partial \Psi}{\partial \utilde{C}} =
+  2 \frac{\partial \Psi}{\partial I_{C}} \frac{\partial I_{C}}{\partial \utilde{C}} +
+  2 \frac{\partial \Psi}{\partial II_{C}} \frac{\partial II_{C}}{\partial \utilde{C}}+
+  2 \frac{\partial \Psi}{\partial III_{C}} \frac{\partial III_{C}}{\partial \utilde{C}}
+\end{equation}
+with derivatives of invariants of Green-Lagrange deformation tensor defined as
+(\(J = \det \left( \utilde{F} \right)\))
+\begin{align}
+  \frac{\partial I_{C}}{\partial \utilde{C}} &= \utilde{I} \tag{6.19a} \\
+  \frac{\partial II_{C}}{\partial \utilde{C}} &= 2 \utilde{C} \tag{6.19b} \\
+  \frac{\partial III_{C}}{\partial \utilde{C}} &= J^{2} \utilde{C}^{-1} \tag{6.22}
+\end{align}
+Find the missing derivatives of the free energy (given in the task) with respect
+to the invariants:
+\begin{align}
+  \frac{\partial \Psi}{\partial I_{C}} &= 
+  \frac{\mu}{2} + 2 c_{2}\left( I_{C} - 3 \right) + 3c_{3}\left( I_{C} - 3 \right)^{2}\\
+  \frac{\partial \Psi}{\partial II_{C}} &= 0 \\
+  \frac{\partial \Psi}{\partial III_{C}} &= \frac{\lambda \ln{J} - \mu}{2 J^{2}}
+\end{align}
+Lastly, the expression for the 2nd Piola-Kirchhoff stress yields
+\begin{equation}
+  \label{eq:PK2yeoh}
+  \utilde{S} = \left[ \mu + 4c_{2}\left( I_{C} - 3 \right) +
+    6c_{3}\left( I_{C} - 3 \right)^{2}\right] \utilde{I} + 
+  \left( \lambda \ln{J} - \mu \right) \utilde{C}^{-1}
+\end{equation}
+The Lagrangian elasticity tensor can be obtained using equation 
+\eqref{eq:elast-tensor-Lagrange}:
+\begin{equation} \tag{6.11}
+  \label{eq:elast-tensor-Lagrange}
+  \uutilde{C} = \frac{\partial \utilde{S}}{\partial \utilde{E}} = 
+  2 \frac{\partial \utilde{S}}{\partial \utilde{C}}
+\end{equation}
+Expanding invariants to have explicit dependence on \(\utilde{C}\) yields
+(\textit{note the overbar open product})
+\begin{equation}
+  \label{eq:dSdC}
+  \frac{\partial \utilde{S}}{\partial \utilde{C}} = 
+  \left[ 4c_{2} + 12c_{3}\left( I_{C} - 3 \right) \right] 
+      \utilde{I} \otimes \utilde{I} + 
+      \frac{\lambda}{2} \utilde{C}^{-1} \otimes \utilde{C}^{-1} +
+      \left( \mu - \lambda \ln{J} \right) \utilde{C}^{-1} \overline{\otimes}
+      \utilde{C}^{-1}
+\end{equation}
+Cauchy stress is a push-forward of the 2nd Piola-Kirchhoff:
+\begin{equation} \tag{5.45b}
+  \label{eq:cauchy-push}
+  \utilde{\sigma} = J^{-1} \utilde{F} \cdot \utilde{S} \cdot \utilde{F}^{T}
+\end{equation}
+Figure~\ref{fig:sigma-eps} shows component of Cauchy stress plotted against
+engineering strain for the situation of uniaxial strain control
+\(\utilde{F} = F_{11} \ubar{\bm{e}}_{1} \otimes \ubar{\bm{E}}_{1}\).
+It is evident that the curve is nonlinear.
+\begin{figure}[th]
+  \pgfplotstableset{
+    create on use/Y/.style={create col/copy column from table={data/task_a_sig11.dat}{0}}
+  }
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+      width = 0.95\textwidth,
+      height=\axisdefaultheight,
+%      tick label style={/pgf/number format/fixed},
+      try min ticks=6,
+      minor tick num=1,
+      grid=both,
+      xmin=0, xmax=1.5,
+      xlabel = {\( \varepsilon_{11}\), [-]},
+      ylabel = {\( \sigma_{11} \), [MPa]},
+      ]
+      \addplot table[y=Y,skip first n=1] {data/task_a_eps11.dat};
+    \end{axis}
+  \end{tikzpicture}  
+  \caption{Cauchy stress component \(\sigma_{11}\) versus strain
+    \(\varepsilon_{11} = F_{11} - 1\).}
+  \label{fig:sigma-eps}
+\end{figure}
+
+The Matlab implementation of this task can be found in \texttt{yeoh.m}
+(see section \ref{app:matlab-code}).
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:

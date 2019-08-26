@@ -1,0 +1,72 @@
+\documentclass[a4paper,12pt]{article}
+% Resize margins:
+\usepackage[top=1.5cm, bottom=2cm, left=3cm, right=2cm]{geometry}
+\usepackage{natbib} % Citation package to cite by name (use plainnat
+% bib style).
+\usepackage{graphicx} % Graphics.
+\usepackage[labelformat=simple]{subcaption} % Get subfigure environment.
+\renewcommand\thesubfigure{(\alph{subfigure})} % Reference subfigures in parentheses.
+\usepackage{empheq} % Loads mathtools, which in turn loads amsmath.
+\usepackage{amssymb, accents, bm} % Maths (accents provide tilde under symbol).
+\usepackage{hyperref} % Clickable links and table of contents.
+\usepackage{siunitx} % SI unit package.
+\usepackage{enumerate} % Labels of the 'enumerate' environment.
+\graphicspath{{img/}} % Add a path to load images.
+\usepackage{pgfplots} % Plots.
+\pgfplotsset{width=7cm,compat=1.12} % Set size of all plots and assure 
+% compatibility backwards.
+\usepackage{todonotes} % Make to-do lists and visible comments.
+\usepackage{tabularx, booktabs} % Tables, Commands to getter spacing above and 
+% below the various rules in the table (\toprule, \bottomrule, \midrule, and 
+% \cmidrule).
+\usepackage{pgfplotstable} % plot x,y data from different files.
+\usepackage{pdfpages} % Include external pdf.
+\newcolumntype{Y}{>{\centering\arraybackslash}X} % Center content of the table, 
+% stretching column(s) with specifier X to make table as wide as specified.
+
+% Custom underline function:
+\newcommand{\ubar}[1]{\mkern 1.5mu\underline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+% Double underline function:
+\newcommand{\uubar}[1]{\ubar{\ubar{#1}}}
+% Underline bold function:
+\newcommand{\ubarbold}[1]{\ubar{\bm{#1}}}
+% Double underline bold function:
+\newcommand{\uubarbold}[1]{\uubar{\bm{#1}}}
+% Undertlilde with bold face symbol:
+\newcommand{\utilde}[1]{\underaccent{\sim}{\bm{#1}}}
+% Double undertlilde with bold face symbol:
+\newcommand{\uutilde}[1]{\underaccent{\approx}{\bm{#1}}}
+
+\allowdisplaybreaks
+
+\title{Computational Nonlinear Mechanics \\ \textbf{Assignment 2:\\
+    Hyperelasticity and FE implementation of large strains}}
+
+\author{Rostyslav Skrypnyk\footnote{Department of Mechanics and Maritime Sciences,
+    rostyslav.skrypnyk@chalmers.se}}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\includepdf[pages=-]{../CA2/CA2_MEkh.pdf} % Task description.
+\clearpage
+\input{sec/task_a} % \include uses pre- and post- \clearpage.
+\input{sec/task_b} 
+\input{sec/task_c} 
+\input{sec/task_d} 
+\input{sec/task_e} 
+\input{sec/appendix_code}
+
+\bibliographystyle{abbrv}
+\bibliography{references}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

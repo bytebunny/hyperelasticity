@@ -1,0 +1,53 @@
+\section{Task E}
+\label{sec:task-e}
+
+The given boundary value problem has been solved using Matlab script
+\texttt{plate\_with\_hole.m} (see section \ref{app:matlab-code}).
+Figure \ref{fig:bvp} shows total reaction force plotted against
+displacement of the top nodes and the shape of the plate before
+and after the deformation.
+\begin{figure}[th]
+  \centering
+  % Reaction force
+  \begin{subfigure}[t]{\textwidth}
+    \begin{tikzpicture}
+      \begin{axis}[
+        width = 0.95\textwidth,
+        height=\axisdefaultheight,
+        minor tick num=1,
+        grid=both,
+        xlabel = {\(u_{x}\), [mm]},
+        ylabel = {Reaction force, [N]},
+        xmin=0, xmax=30
+        ]
+        \addplot table[skip first n=1] {data/force_displacement.dat};
+      \end{axis}
+    \end{tikzpicture}
+    \caption{}
+  \end{subfigure}
+
+  % Geometry
+  \begin{subfigure}[t]{\textwidth}
+    \begin{tikzpicture}
+      \begin{axis}[
+        width = 0.95\textwidth,
+        try min ticks=6,
+        enlargelimits=false,
+        axis equal image,
+        axis on top,
+        xlabel={\(x\), [mm]},
+        ylabel={\(y\), [mm]}
+        ]
+        \addplot graphics[xmin=0,xmax=50,ymin=0,ymax=20] {mesh};
+      \end{axis}
+    \end{tikzpicture}  
+    \caption{}
+  \end{subfigure}
+  \caption{(a) Reaction force versus displacement and (b) deformed mesh.}
+  \label{fig:bvp}
+\end{figure}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:

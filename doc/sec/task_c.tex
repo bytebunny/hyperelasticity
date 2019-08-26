@@ -1,0 +1,35 @@
+\section{Task C}
+\label{sec:task-c}
+
+The equivalent internal forces are given as
+\begin{equation} \tag{9.15b}
+  \label{eq:int-force}
+  \ubar{\bm{T}}_{a}^{(e)} = \int_{v^{(e)}} \utilde{\sigma} \cdot \ubar{\nabla} N_{a}\, dv
+\end{equation}
+For a CST element of thickness \(t\) the same expression in local coordinates reads 
+\begin{equation}
+  \label{eq:int-force-local}
+  \ubar{\bm{T}}_{a}^{(e)} = \int \int \utilde{\sigma} \cdot \ubar{\nabla} N_{a} \, t 
+  \, dx \, dy =
+  \int_{-1}^{1} \int_{-1}^{1} \utilde{\sigma} \cdot \ubar{\nabla} N_{a} \, t 
+  \det \left( \frac{\partial \ubar{\bm{x}}}{\partial \ubar{\bm{\xi}}} \right) \,
+  d\xi \, d\eta
+\end{equation}
+Apply Gaussian quadrature rule to compute the integral numerically:
+\begin{equation}
+  \label{eq:int-force-numer}
+  \ubar{\bm{T}}_{a}^{(e)} \approx
+  \sum_{i=1}^{\text{nip}} W_{i} \utilde{\sigma} \cdot \ubar{\nabla} N_{a} \, t 
+  \det \left( \frac{\partial \ubar{\bm{x}}}{\partial \ubar{\bm{\xi}}} \right),
+\end{equation}
+where \(W_{i}\) is a weight for each of the integration points.
+For a CST element, the number of integration points is 1 with coordinates
+\(\xi = 1/3\), \(\eta = 1/3\) and the weight \(W = 0.5\).
+
+The Matlab implementation of this task can be found in 
+\texttt{get\_intern\_eq\_forces.m} (see section \ref{app:matlab-code}).
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:

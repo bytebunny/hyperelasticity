@@ -1,0 +1,60 @@
+\section{Task B}
+\label{sec:task-b}
+
+For a constant strain triangle (CST) element, the shape functions can be defined as
+\begin{equation}
+  \label{eq:shape-func}
+  N_{1} = 1 - \xi - \eta, \quad N_{2} = \xi, \quad N_{3} = \eta
+\end{equation}
+
+According to equations \eqref{eq:material-shape-grad}, the \textit{material}
+gradient of shape function reads
+\begin{equation} \tag{9.6ab} \label{eq:material-shape-grad}
+  \ubar{\nabla}_{0}N_{a} = \frac{\partial N_{a}}{\partial \ubar{\bm{X}}} = 
+  \left( \frac{\partial \ubar{\bm{X}}}{\partial \ubar{\bm{\xi}}} \right)^{-T}
+  \frac{\partial N_{a}}{\partial \ubar{\bm{\xi}}} =
+  \left( \frac{\partial \ubar{\bm{X}}}{\partial \ubar{\bm{\xi}}} \right)^{-T}
+  \cdot \ubar{\nabla}_{\xi} N_{a}, \quad
+  \frac{\partial \ubar{\bm{X}}}{\partial \ubar{\bm{\xi}}} 
+  = \sum_{a=1}^{n} \ubar{\bm{X}}_{a} \otimes \ubar{\nabla}_{\xi}N_{a}
+\end{equation}
+%
+\begin{equation}
+  \ubar{\nabla}_{\xi} N_{a} = \left[
+    \begin{array}{c}
+      \dfrac{\partial N_{a}}{\partial \xi} \\
+      \dfrac{\partial N_{a}}{\partial \eta} \\
+	\end{array} \right] =
+  \left[
+    \begin{array}{c c c}
+      \dfrac{\partial N_{1}}{\partial \xi} & \dfrac{\partial N_{2}}{\partial \xi} & \dfrac{\partial N_{3}}{\partial \xi}\\
+      \dfrac{\partial N_{1}}{\partial \eta} & \dfrac{\partial N_{2}}{\partial \eta} & \dfrac{\partial N_{3}}{\partial \eta}\\
+	\end{array} \right]  =
+  \left[
+    \begin{array}{c c c}
+      -1 & 1 & 0 \\
+      -1 & 0 & 1 \\
+	\end{array} \right]
+\end{equation}
+Similarly, the \textit{spatial} shape function gradients are given as
+\begin{equation} \tag{9.11ab}
+  \label{eq:spatial-shape-grad}
+  \ubar{\nabla} N_{a} = \frac{\partial N_{a}}{\partial \ubar{\bm{x}}} =
+  \left( \frac{\partial \ubar{\bm{x}}}{\partial \ubar{\bm{\xi}}} \right)^{-T}
+  \cdot \ubar{\nabla}_{\xi} N_{a}, \quad
+  \frac{\partial \ubar{\bm{x}}}{\partial \ubar{\bm{\xi}}} 
+  = \sum_{a=1}^{n} \ubar{\bm{x}}_{a} \otimes \ubar{\nabla}_{\xi}N_{a}
+\end{equation}
+Lastly, the deformation gradient can be expressed as
+\begin{equation} \tag{9.5}
+  \label{eq:deform-grad}
+  \utilde{F} = \sum_{a=1}^{n} \ubar{\bm{x}}_{a} \otimes \ubar{\nabla}_{0} N_{a}
+\end{equation}
+
+The Matlab implementation of this task can be found in \texttt{shape\_gradients.m}
+(see section \ref{app:matlab-code}).
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:

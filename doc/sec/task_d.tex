@@ -1,0 +1,70 @@
+\section{Task D}
+\label{sec:task-d}
+
+The \textit{constitutive} component of the tangent matrix relating node \(a\) to
+node \(b\) is
+\begin{equation} \tag{9.35}
+  \label{eq:tang-mat-const}
+  \left[ \uubar{\bm{K}}_{c,ab} \right]_{ij} =
+  \int_{v^{(e)}} \sum_{k,l=1}^{3} \frac{\partial N_{a}}{\partial x_{k}}
+  c_{ijkl} \frac{\partial N_{b}}{\partial x_{l}} \, dv, \quad i,j = 1,2,3
+\end{equation}
+The 4th order elasticity tensor in \textit{spatial} configuration can be computed
+by pushing forward its counterpart in the \textit{material} configuration
+\(\partial \utilde{S} / \partial \utilde{E}\):
+\begin{equation}
+  \label{eq:elast-tensor-Euler}
+  \uutilde{c} = J^{-1} \utilde{F} \overline{\otimes} \utilde{F} \cdot
+  \frac{\partial \utilde{S}}{\partial \utilde{E}} \cdot
+    \utilde{F}^{T} \overline{\otimes} \utilde{F}^{T}
+\end{equation}
+
+For a CST element of thickness \(t\) equation \eqref{eq:tang-mat-const} can be
+rewritten as
+\begin{equation}
+  \label{eq:tang-mat-const-CST}
+  \uubar{\bm{K}}_{c,ab} \approx \sum_{i=1}^{\text{nip}} W_{i} \ubar{\nabla} N_{a}
+  \cdot \uubar{\bm{D}} \cdot \ubar{\nabla} N_{b} t 
+  \det \left( \frac{\partial \ubar{\bm{x}}}{\partial \ubar{\bm{\xi}}} \right),
+\end{equation}
+where \(\uutilde{c}\) was rearranged into matrix \(\uubar{\bm{D}}\) that
+facilitates computations in the matrix form for 2D case:
+\begin{equation}
+  \label{eq:D-matrix}
+  \uubar{\bm{D}} = \left[
+    \begin{array}{c c c}
+      c_{1111} & c_{1122} & c_{1112} \\
+               & c_{2222} & c_{2212} \\
+      \text{sym} &  & c_{1212}
+	\end{array} \right] 
+\end{equation}
+
+The components of the \textit{initial stress} matrix are as follows:
+\begin{equation} \tag{9.44c}
+  \label{eq:tang-mat-init}
+  \left[ \uubar{\bm{K}}_{\sigma,ab} \right]_{ij} =
+  \int_{v^{(e)}} \sum_{k,l=1}^{3} \frac{\partial N_{a}}{\partial x_{k}}
+  \sigma_{kl} \frac{\partial N_{b}}{\partial x_{l}} \delta_{ij} \, dv,
+  \quad i,j = 1,2,3  
+\end{equation}
+Then for a CST element this becomes
+\begin{equation}
+  \label{eq:tang-mat-init-CST}
+  \uubar{\bm{K}}_{\sigma,ab} \approx \sum_{i=1}^{\text{nip}} W_{i} \ubar{\nabla} N_{a}
+  \cdot \utilde{\sigma} \cdot \ubar{\nabla} N_{b} \utilde{I} t 
+  \det \left( \frac{\partial \ubar{\bm{x}}}{\partial \ubar{\bm{\xi}}} \right)
+\end{equation}
+
+The total tangent matrix is then
+\begin{equation}
+  \label{eq:tang-mat}
+  \uubar{\bm{K}}_{ab} = \uubar{\bm{K}}_{c,ab} + \uubar{\bm{K}}_{\sigma,ab}
+\end{equation}
+
+The Matlab implementation of this task can be found in 
+\texttt{get\_tangent\_matrices.m} (see section \ref{app:matlab-code}).
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:
